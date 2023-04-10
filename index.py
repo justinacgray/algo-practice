@@ -204,7 +204,7 @@ print("_________________________")
 #                     # add to value
 #                     matches[query] += 1
 #                     # else if it doesn't match add key
-#                 else:
+#                 else: #don't need this line because we made keys before this for loop
 #                     # make value equal to 1
 #                     matches[query]= 1     
 #         matches[query] = 0
@@ -239,17 +239,11 @@ def matchingStrings(strings, queries):
                 if string in matches.keys():
                     # add to value
                     matches[query] += 1
-                    # else if it doesn't match add key
-                # else: #don't need this line because we made keys before this for loop
-                #     # make value equal to 1
-                #     matches[query]= 1     
-        # didn't need an else -> WHY!!!
-            # else if no match equal to 0
-            # else:
-            #     matches[]
-                # matches[string] =0 #makes everything 0
-    print("Matches List---->", matches)
+    for match in matches.values():
+        results.append(match)
 
+    print("Matches List---->", matches)
+    print(results)
 
 
 matchingStrings(['yah', 'aba', 'aba', 'shm', 'shm','yah' ], ['kng', 'aba', 'yah', 'shm', 'lte', 'hsd'])
