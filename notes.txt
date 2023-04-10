@@ -1,0 +1,221 @@
+const alphabet = "abcdefghijklmnopqrstuvwxyz";
+const vowels = "aeiou";
+​
+const calculateWordScore = (word = "") => {
+  // TODO: create an array from the word.
+  //  For an example - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split
+  //  Specifically look at line 7
+  // TODO: Now that you have an array, loop through the array.
+  //  Just to get the practice with higher order array methods, use .forEach
+  //  Keep in mind that the callback passed into the forEach method can take two arguments.
+  //  The first argument is the actual item in the array, the second is the index.
+  //  Here's the documentation link - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach#syntax
+  // TODO: From within the forEach callback...
+
+  // =========
+  //  RULE #1 set a default value for the letter's value.
+  // =========
+  //  To do this, you'll need to get the letter's index in the alphabet and add 1 to it.
+  //  However, as a precaution, you have to ensure that the character/letter is actually in the alphabet variable.
+  //
+  //  If the character does not exist in the alphabet, then return false. Since you're using forEach, you return false to "skip" that item in the array.
+  //  ie. if (letterIndex === -1) return false;
+  //
+  //  Now you can actually set the default value for the letter based on Rule #1
+  //  ie. let letterValue = letterIndex + 1;
+  //
+  /*
+    =======
+    RULE #2
+    =======
+​
+    TODO: Still within the forEach callback, let's handle Rule #2.
+    For this rule, we need to know a few things:
+    1. Is the character a consonant?
+    2. Is the next character a vowel?
+​
+    To check if a character is a consonant,
+      and if we only define vowels and alphabet variables,
+      then technically if a character is in the alphabet,
+      but is not in the list of vowels, then that makes it a consonant.
+​
+    Th is check would be perfect to go inside of a function, whose name is maybe
+    isConsonant, and which maybe takes in a character, and returns either true/false,
+    based on it being within the list of alphabet characters but not the list of vowels.
+​
+    You could also create a similar function, whose name is maybe isVowel and has
+    a similar behavior but must be in the list of alphabet characters AND the list of vowels.
+​
+    If you create those two functions that have Single Responsibilities
+    (https://en.wikipedia.org/wiki/Single-responsibility_principle), they can be
+    1 - super easy to implement, 2 - easy to test, and 3 - easy to maintain.
+​
+    Finally, we need to get the next character, ie. const nextChar = word[index + 1], 
+    and then check to see if its a vowel. If you wrote the isVowel function, this 
+    check will be super easy to call. ie. isVowel(nextChar).
+​
+    If all of these conditions are met, then letterValue gets updated...
+    ie. letterValue = Math.round(letterValue / 2);
+  */
+  /*
+    =======
+    RULE #3
+    =======
+    Still within the forEach callback...
+​
+    Use an else..if
+​
+    To check if vowels are next to each other, then that means that we need
+    to have a reference to the previousChar and the nextChar.
+​
+    So we created nextChar before right? Maybe we should move that reference
+    toward the top of the forEach method, and we should do the same for 
+    previousChar. Since we're using these values in multiple places from within
+    our callback, let's establish them at the top. BUT one important thing that
+    we have to protect against are indexes that don't exist in the array. This 
+    principle will be a major key throughout your career.
+    For example, we could define previousChar like this...
+​
+      const previousChar = word[index - 1];
+    
+    But what happens is index is 0. That means that we try to get the index of -1, 
+    which does not exists in Javascript.
+    We'll run into something similar with nextChar. If we did this...
+      
+      const nextChar = word[index + 1];
+​
+    We'll run into an issue if on a word like "gym", we are at the "m". Trying to define
+    nextChar would come back as undefined. And could possibly cause an issue if you try
+    to operate on it like it was a string. Here's a good blog post on some ways to fall back to 
+    a default value - https://dev.to/acroynon/javascript-or-assignment-operator-1e8g.
+    ie. const nextChar = word[index + 1] || "";
+​
+    Circling back around to the rule, if either the isVowel(nextChar) OR isVowel(previousChar),
+    then letterValue = letterValue * letterValue;. You could also use Math.pow here.
+​
+  */
+  /*
+  =======
+  RULE #4 - The letter Y is considered a vowel if there are no other vowels in the word.
+  =======
+  Still within the forEach callback...
+​
+  use an else..if
+  
+  For this, you basically need a way of checking to see how many vowels
+  already exists within a word. If there are 0, then Y is a vowel.
+  This would be another great candidate for a function that returns a boolean.
+  This would also a great opportunity to use another Array method...filter.
+​
+  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+​
+  This function could take in an array of characters, just like the one that
+  you created from splitting up the word into an array of characters.
+  Then you could call the filter method on that array of characters and 
+  in the callback, the argument will effectively be a single character.
+  Return whether or not that character is a vowel...which is a function
+  that you already have written.
+  
+  When you call the filter method, it returns a new array, that is a filtered
+  version of the original array of characters. And since its an array, you can 
+  get a count of the filtered characters (which are all vowels). If that count
+  is equal to 0 (which means there are no vowels), then Y is a vowel and your
+  function should return true.
+  
+  Here's a start...
+  const isYAVowel = (chars) => {
+    const vowelsFromWord = chars.filter((char) => {
+      // DO something here that returns a boolean
+    });
+    return vowelsFromWord.length === 0;
+  }
+​
+  So...now that we have a way to check if Y is considered a vowel,
+  you have to go back and update Rule #2 and work this logic in.
+  */
+  /*
+    At this point, you are at the end of your forEach method,
+    you can add the letter value to the wordScore.
+  */
+  /*
+  RULE #5 - After calculating the letter score, 
+    apply an exponent equal to the number of times the most-repeated
+​
+  To do this, you could define another function that returns the 
+  number of characters in the word for a given character. This can be 
+  similar to the isYAVowel function in the fact that we'll
+  pass in the list of charaters, but we'll also pass in a character.
+​
+  This process is not the most effective or most efficient but it'll be the
+  easiest to understand.
+​
+  Your function might look something like this...
+  const letterCount = (chars, letter) => {
+    const letterInstancesInWord = chars.filter((char) => {
+      return char === letter;
+    });
+    return letterInstancesInWord.length;
+  }
+​
+  In addition, it'll be a good idea to declare a new variable before your .forEach
+  loop that will keep track of the most frequent letter in the word.
+  ie. let mostFrequentLetterCount = 0;
+​
+  Finally, while you're inside of the .forEach, maybe towards the top,
+  you want to update this mostFrequentLetterCount value if the current letter is 
+  greater than that value.
+  ie.
+​
+    const instancesOfLetter = letterCount(chars, letter); //chars is declared outside of the forEach, letter is the parameter passed into the forEach callback
+    if (instancesOfLetter > mostFrequentLetterCount) {
+      mostFrequentLetterCount = instancesOfLetter;
+    }
+​
+  Finally, outside of the forEach callback, check to see if the mostFrequentLetterCount
+  is greater than 1 and if it is then raise recalculate the wordScore using the Math.pow
+  function.
+  */
+  /*
+    Here's a list of some things that they are testing you for on this exercise.
+    If you haven't come across these yet, don't worry, they only want to gauge what
+    you do know so they can determine where you are. More than likely if you 
+    don't know some of these, it won't be a bad thing but just some notes for you
+    to study on as you further your career.
+​
+    ------------------------
+    Javascript principles
+    ------------------------
+      - ability to write and call functions
+      - ability to write loops
+      - use of JS built in methods. Stuff like...
+      --  String.split
+      --  Array.length
+      --  Math.pow
+      - writing comments
+      - equality
+      - variable assignments and default value assigments
+      - protection against undefined or null values
+      - using callback functions
+​
+    ------------------------
+    ES6 principles
+    ------------------------
+      - var, let, and const usage
+      - function structure (function keyword vs fat arrow)
+      - use of Array methods like map, forEach, filter, reduce
+      - default parameter values
+​
+    ------------------------
+    BONUS :: Regular Expressions
+    ------------------------
+      - this would come in handy for counting the number of occurences of a character
+      -- https://stackoverflow.com/questions/1072765/count-number-of-matches-of-a-regex-in-javascript
+      - or even checking to see if a string contains certain characters...like a vowel
+​
+    ------------------------
+    BONUS :: Test Driven Development / Use of a testing framework
+    ------------------------
+      - Writing small unit tests before you write the implementation of code is a popular way to develop. Not everyone does it but I noticed that they mentioned tests in the code you showed me yesterday. I doubt this is a mandatory thing for you for to get this role, but again just want to make you aware of it if you aren't already.
+      - Here's a blog post where they are using the Jest testing framework - https://medium.com/@suvodeep4119/javascript-tdd-using-jest-9b535c6be7be
+  */
+};
