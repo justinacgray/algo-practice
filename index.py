@@ -188,14 +188,50 @@ def chickBoom(num):
 print("_________________________")
 
 # how many times queries match to he string
+# def matchingStrings(strings, queries):
+#     matches = dict()
+#     results = []
+    
+#     # looping through strings
+#     for string in strings:
+#         # looping through queries
+#         for query in queries:
+#             # if string matches the query
+#             if string == query:
+#                 # print("---->",string, query)
+#                 # if key exists
+#                 if string in matches.keys():
+#                     # add to value
+#                     matches[query] += 1
+#                     # else if it doesn't match add key
+#                 else:
+#                     # make value equal to 1
+#                     matches[query]= 1     
+#         matches[query] = 0
+        
+        
+#         # didn't need an else -> WHY!!!
+#             # else if no match equal to 0
+#             # else:
+#             #     matches[]
+#                 # matches[string] =0 #makes everything 0
+
+#     print("Matches List---->", matches)
+
+
+
+# matchingStrings(['yah', 'aba', 'aba', 'shm', 'shm','yah' ], ['kng', 'aba', 'yah', 'shm'])
+
+
 def matchingStrings(strings, queries):
     matches = dict()
     results = []
     
     # looping through strings
-    for string in strings:
+    for query in queries:
+        matches[query] = 0
         # looping through queries
-        for query in queries:
+        for string in strings:
             # if string matches the query
             if string == query:
                 # print("---->",string, query)
@@ -204,20 +240,16 @@ def matchingStrings(strings, queries):
                     # add to value
                     matches[query] += 1
                     # else if it doesn't match add key
-                else:
-                    # make value equal to 1
-                    matches[query]= 1     
-        matches[query] = 0
-        
-        
+                # else: #don't need this line because we made keys before this for loop
+                #     # make value equal to 1
+                #     matches[query]= 1     
         # didn't need an else -> WHY!!!
             # else if no match equal to 0
             # else:
             #     matches[]
                 # matches[string] =0 #makes everything 0
-
     print("Matches List---->", matches)
 
 
 
-matchingStrings(['yah', 'aba', 'aba', 'shm', 'shm','yah' ], ['aba', 'yah', 'shm', 'kng'])
+matchingStrings(['yah', 'aba', 'aba', 'shm', 'shm','yah' ], ['kng', 'aba', 'yah', 'shm', 'lte', 'hsd'])
