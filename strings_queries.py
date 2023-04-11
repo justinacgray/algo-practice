@@ -2,28 +2,57 @@ import numpy as np
 # matchingStrings(['yah', 'aba', 'aba', 'shm', 'shm','yah' ], ['kng', 'aba', 'yah', 'shm'])
 # You can't have two keys with the same value.
 
+# working 
+# def matchingStrings(strings, queries):
+#     matches = dict()
+#     results = []
+    
+#     # looping through strings
+#     for query in queries:
+#         matches[query] = 0
+#         # looping through queries
+#         for string in strings:
+#             # if string matches the query
+#             if string == query:
+#                 # print("---->",string, query)
+#                 # if key exists
+#                 if string in matches.keys():
+#                     # add to value
+#                     matches[query] += 1
+#     for match in matches.values():
+#         results.append(match)
+
+#     print("Matches List---->", matches)
+#     print(results)
+
+
+# matchingStrings(['yah', 'aba', 'aba', 'shm', 'shm','yah' ], ['kng', 'aba', 'yah', 'shm', 'lte', 'hsd'])
+
+
+# working progress
 def matchingStrings(strings, queries):
     matches = dict()
-    matches2 = dict()
+
     results = []
     
     # looping through strings
-    for query in queries:
+    for query in range(len(queries)):
         if query in matches.keys():
             matches[query] = 0
         else:
-            matches2[query] = 0
-        print(f' \n QUERY  -> {query} \n  \n MATCH DICT -> \n {matches} \n MATCH2 DICT ->  {matches2}' )
+            matches[query] = 0
+      
         # looping through queries
-    #     for string in strings:
-    #         # if string matches the query
-    #         if string == query:
-    #             matches[query] += 1
-    # for match in matches.values():
-    #     results.append(match)
+        for string in strings:
+            # if string matches the query
+            if string == queries[query]:
+                matches[query] += 1
+    for match in matches.values():
+        results.append(match)
 
-    # print("Matches List---->", matches)
-    # print(results)
+    print("Matches List---->", matches)
+    print(results)
+    return results
 
 
 # matchingStrings(['yah', 'aba', 'aba', 'shm', 'shm','yah','kng' ], ['kng', 'aba', 'yah', 'shm', 'lte', 'kng', 'hsd'])
@@ -39,26 +68,26 @@ print("___________________________")
 npArray1 = np.array(list1)
 newArray1 = np.unique(npArray1)
 list_unique_count1 = len(newArray1)
-print(newArray1)
-print(list_unique_count1)
+# print(newArray1)
+# print(list_unique_count1)
 
 print("___________________________")
 
 npArray2 = np.array(list2)
 newArray2 = np.unique(npArray2)
 list_unique_count2 = len(newArray2)
-print(newArray2)
-print(list_unique_count2)
+# print(newArray2)
+# print(list_unique_count2)
 
 
 npOutPut = np.array(list1)
 newNpOutPut  = np.unique(npOutPut)
 list_output = len(newNpOutPut)
-print("--->", newNpOutPut)
-print("ouut --->", list_output)
+# print("--->", newNpOutPut)
+# print("ouut --->", list_output)
 
 
-print("Len of output --->", len(out))
+# print("Len of output --->", len(out))
 
 
 matchingStrings(list1, list2)
